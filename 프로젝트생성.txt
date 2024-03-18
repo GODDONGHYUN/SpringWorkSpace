@@ -1,0 +1,10 @@
+빌드도구
+- visual stuido code 확장 Extension Pack for Java 설치
+1. maven 프로젝트 만들기
+- visual stuido code에서 
+F1키 - Java Create javaproject - Maven(빌드도구) - No Archetype - com.donghyun(회사명) - maven(파일명) - workspace 폴더위치에 생성
+- https://mvnrepository.com/ - mysql 검색 후 -mysqlconnector 검색 후 버전 들어가서 maven 코드 복사
+
+2. gradle 프로젝트 만들기
+- visual stuido code 확장 Gradle for Java 설치
+F1키 - Java Create javaproject - Gradel(빌드도구) - workspace 폴더위치 선택 - groovy - gradle(파일명)
