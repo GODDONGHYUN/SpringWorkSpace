@@ -3,11 +3,23 @@
  */
 package springworkspace;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+// import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
+// @NoArgsConstructor  // 아무것도 없는 빈 생성자가 만들어짐 
+@AllArgsConstructor
+@RequiredArgsConstructor // final로 지정되어있는 변수들로만 생성자를 만들어줌
+@Builder
 class Person {
 
+    private final String name;
+    private int age;
 }
 
 public class App {
@@ -17,5 +29,10 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+        
+        Person person = new Person("홍길동",20); // 리터럴 형태로 찍게되면 vscode에서 알아서 매개변수 이름을 찍어줌 
+        // person = new Person(); noargsconstructor 덕분에 빈 생성자를 사용 가능
+        person = new Person("고길동"); // name이 final이기 때문에 value를 넣어줘야함
+        person = Person.builder().name("홍길동").age(20).build(); // 지금은 변수가 두 개 밖에 없지만 builder를 사용하게 되면 복잡하게 만들어진 생성자의 매개변수를 명확하게 표현해 줄 수 있다.
     }
 }
