@@ -1,5 +1,6 @@
 package com.donghyun.basic.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -8,6 +9,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.donghyun.basic.service.BasicService;
+
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 // Controller 레이어 
 // - 클라이언트와 서버간의 접점
@@ -22,7 +28,21 @@ import org.springframework.web.bind.annotation.RestController;
 //@RequestMapping(value = "/main" , method = {RequestMethod.GET})
 // HTTP GET localhost:4000/main/** 
 @RequestMapping("/main")
+@RequiredArgsConstructor // final로 지정된 생성자를 쓰기위한 어노테이션
 public class BasicController {
+    // 아래 코드는 모든 메서드에서 생성 가능
+    // BasicService service  = newBasicServiceImplement();
+    
+    // 생성자를 통한 외부에서 의존성을 주입
+
+
+    // @Autowired
+    // public BasicController(BasicService service) {
+    //    this.service = service;
+   // }
+
+    // final로 생성을 해버리면 필수 매개변수로 인식을 해버림 
+   private final BasicService service;
 
     //HTTP GET localhost:4000/main/
     @RequestMapping(value = "/" , method = {RequestMethod.GET})
