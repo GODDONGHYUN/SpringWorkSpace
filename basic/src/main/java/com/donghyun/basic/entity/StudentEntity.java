@@ -32,7 +32,7 @@ public class StudentEntity {
     //  @Id : 
     // - Entity의 필드 중 Primary Key로 사용되는 필드를 지정    
     @Id
-    //@ GEneratedValue :
+    //@ GeneratedValue :
     // - Primary key의 자동 생성 전략을 지정
     // - Auto : JPA가 적절한 생성 전략을 선택
     // - IDENTITY : auto_increment 전략
