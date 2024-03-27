@@ -1,5 +1,7 @@
 package com.donghyun.basic.entity;
 
+import com.donghyun.basic.dto.request.student.PostStudentRequestDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -52,4 +54,11 @@ public class StudentEntity {
     private Integer age;
     private String address;
     private Boolean graduation;
+
+    public StudentEntity(PostStudentRequestDto dto) {
+        this.name = dto.getName();
+				this.age = dto.getAge();
+				this.address = dto.getAddress();
+				this.graduation = dto.getGraduation();
+    }
 }

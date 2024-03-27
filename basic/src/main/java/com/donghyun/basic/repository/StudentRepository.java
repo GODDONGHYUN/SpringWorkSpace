@@ -12,7 +12,8 @@ import com.donghyun.basic.entity.StudentEntity;
 // @Repository : 해당 클래스를 Spring Bean으로 등록하는 어노테이션, @Component와 동일
 // * - interface에 @Repository를 사용한 이유
 // ? - JPA를 사용하면 JpaRepository 인터페이스를 상속받은 인터페이스의 구현체를 JPA가 자동으로 생성 
-@Repository                                                                              
+@Repository
+
 public interface StudentRepository 
 // JPARepository<T, ID> :
 // * - JPA 기반의 Repository를 구현하는 주요 인터페이스
