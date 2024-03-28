@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.donghyun.basic.dto.request.student.PatchStudentRequestDto;
 import com.donghyun.basic.dto.request.student.PostStudentRequestDto;
 import com.donghyun.basic.service.StudentService;
 
@@ -20,29 +22,34 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StudentController {
 
-        private final StudentService studentService;
-    
-    //  CREATE
+    private final StudentService studentService;
+
+    // CREATE
     @PostMapping("/")
     public ResponseEntity<String> postStudent(
         @RequestBody @Valid PostStudentRequestDto requestBody
     ) {
-        ResponseEntity<String> response =
-        studentService.postStudent(requestBody);
+        ResponseEntity<String> response = studentService.postStudent(requestBody);
         return response;
     }
 
-    //  UPDATE
+    // UPDATE
     @PatchMapping("/")
-    public ResponseEntity<?> patchStudent() {
-        return null;
+    public ResponseEntity<String> patchStudent(
+        @RequestBody @Valid PatchStudentRequestDto requestBody
+    ) {
+        ResponseEntity<String> response = studentService.patchStudent(requestBody);
+        return response;
     }
 
-    // DELETE 
+    // DELETE
     @DeleteMapping("/{studentNumber}")
-    public ResponseEntity<?> deleteStudent(
+    public ResponseEntity<String> deleteStudent(
         @PathVariable("studentNumber") Integer studentNumber
     ) {
-        return null;
+        ResponseEntity<String> response = 
+        studentService.deleteStudent(studentNumber);
+        return response;
     }
+    
 }
