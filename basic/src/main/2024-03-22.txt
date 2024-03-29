@@ -1,5 +1,5 @@
 Spring init 
-        -> applicaiton.properties(server.port 변경)
+        -> application.properties(server.port 변경)
         -> controller 생성 (@RestController, @RequestMapping)
         -> 각 HTTP 요청에 따른 method 생성 (@Get, Post, Put, Patch, DeleteMapping)
                 -> 브라우저의 스크립트로 요청이 넘어왔을 때 같은 출처가 아니라면 CORS 정책으로 막힘
@@ -13,3 +13,10 @@ Spring init
         -> validation을 사용해서 유효성 검사 시에 유효 하지 않으면 spring boot가 자동으로 response body를 생성해서 응답
                     -> ExceptionHandler 클래스로 validation 관련 예외 직접 처리 (@RestControllerAdvice, @ExceptionHandler)
         -> 각 HTTP 응답을 직접 제어하기 위해 ResponseEntity 클래스를 사용 (status code, body, header ...)
+
+
+        CRUD 평균적 사용 빈도
+        CREATE : 1 ~ 2
+        READ : 엄청 많음
+        UPDATE :  1 ~ 컬럼 개수
+        DELETE :  1 ~ 2
