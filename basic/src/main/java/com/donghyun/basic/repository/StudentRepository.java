@@ -65,24 +65,42 @@ extends JpaRepository<StudentEntity, Integer> {
 
     // JPQL (Java Persistence Query Language) : 
     // * 표준 SQL과 매우 흡사하지만 Entity명과 Entity 속성으로 쿼리를 작성하는 방법
-    @Query(value = 
-      "SELECT s FROM student s  WHERE s.studentNumber ?1 AND s.age > ?2",
-      nativeQuery = false
+    @Query(value=
+        "SELECT s FROM student s WHERE s.studentNumber = ?1 AND s.age > ?2",
+        nativeQuery=false
     )
     List<StudentEntity> getStudent2(Integer studentNumber, Integer age);
 
     // ? Native SQL:
     // * 현재 사용하고 있는 RDBMS의 sql문법을 그대로 따르는 방식
-  @Query(
-    value = "SELECT " + "student_number AS studentNumber, " + "name ," + "age, " + " address, " + "graduation " + "from student " +  "WHERE student_number = ?1 " + "AND age > ?2 ", nativeQuery = true
-  )
-  List<StudentEntity> getStudent(Integer studentNumber, Integer age);
+    @Query(value=
+        "SELECT "+
+            "student_number AS studentNumber, " + 
+            "name, "+
+            "age, " +
+            "address, " +
+            "graduation " +
+        "FROM student " + 
+        "WHERE student_number = ?1 " +
+        "AND age > ?2 ",
+        nativeQuery=true 
+    )
+    List<StudentEntity> getStudent(Integer studentNumber, Integer age);
 
-  @Query(
-    value = "SELECT " + "student_number AS studentNumber, " + "name ," + "age, " + " address, " + "graduation " + "from student " +  "WHERE student_number = :student_number " + "AND age > :age ", nativeQuery = true
-  )
-  List<StudentEntity> getStudent3(
-    @Param("student_number")  Integer studentNumber, 
+    @Query(value=
+    "SELECT "+
+        "student_number AS studentNumber, " + 
+        "name, "+
+        "age, " +
+        "address, " +
+        "graduation " +
+    "FROM student " + 
+    "WHERE student_number = :student_number " +
+    "AND age > :age ",
+    nativeQuery=true 
+)
+List<StudentEntity> getStudent3(
+    @Param("student_number") Integer studentNumber, 
     @Param("age") Integer age
-    );
+);
 }
