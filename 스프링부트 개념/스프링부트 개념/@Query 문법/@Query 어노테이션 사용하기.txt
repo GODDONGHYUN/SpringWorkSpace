@@ -1,0 +1,13 @@
+@Query 어노테이션 사용하기
+
+사용배경
+쿼리 메소드를 통해 쿼리를 생성하는 방식은 조건이 많아질 경우 메소드의 이름이 길어져 가독성이 떨어짐
+비교적 복잡한 쿼리를 작성하기 위해 사용됨
+
+Spring Data JPA에서 제공하는 기능으로 JPQL을 사용하여 쿼리를 작성하는 방법
+JPQL은 SQL과 문법이 거의 비슷하기 때문에 사용하는데 용이함
+JPQL은 엔티티 객체를 대상으로 쿼리를 수행함
+
+공식 레퍼런스
+
+https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html

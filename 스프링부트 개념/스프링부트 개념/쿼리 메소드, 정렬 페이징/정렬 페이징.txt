@@ -1,0 +1,27 @@
+정렬과 페이징
+
+쿼리문에서의 정렬
+
+일반적인 쿼리문을 작성할 때 정렬을 사용하기 위해서는 'ORDER BY' 구문을 사용
+특정 컬럼을 기준으로 오름차순 또는 내림차순으로 정렬된 레코드 목록을 응답 받음
+
+쿼리 메소드에서는 메소드의 이름으로 정렬 처리를 설정할 수 있음
+Asc : 오름차순
+Desc : 내림차순
+예) findByNameOrderByStockAsc
+
+만약 여러 정렬 기준을 사용하고 싶다면 이어 붙이는 것으로 설정할 수 있음
+예) findNameOrderByStockAscPriceDesc
+
+매개 변수를 활용한 정렬 처리
+
+메소드 이름에 정렬 키워드를 넣는 방법이 아닌 Sort 객체를 활용하여 정렬 기준을 설정할 수 있음
+예) findByName(String name, Sort sort)
+     findByName("pen", Sort.by(Order.asc("price")));
+
+매개 변수를 활용한 페이징 처리
+
+페이징 처리를 하면 리턴 타입으로 Page를 설정하고 매개변수로 Pageable 객체를 사용
+예) findByName(String name, Pageable pageable);
+    findByName("공책", PageRequest.of(0.2));
+

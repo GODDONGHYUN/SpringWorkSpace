@@ -1,0 +1,40 @@
+예외 처리(Exception)
+
+스프링 부트의 예외 처리 방식
+
+스프링 부트의 예외 처리 방식은 크게 2가지가 존재
+ - @ControllerAdvice를 통한 모든 Controller에서 발생할 수 있는 예외 처리
+ - @ExceptionHandler를 통한 특정 Controller의 예외 처리
+
+@ControllerAdvice로 모든 컨트롤러에서 발생할 예외를 정의하고,
+@ExceptionHandler를 통해 발생하는 예외 마다 처리할 메소드를 정의
+
+예외 클래스
+
+모든 예외 클래스는 Throwable 클래스를 상속 받고 있음
+Exception은 수많은 자식 클래스가 있음
+RuntimeException은 Unchecked Exception이며, 그 외 Exception은 Checked Exception으로 볼 수 있음
+
+예외 처리(Exception)
+
+1. @ControllerAdvice, @RestControllerAdvice
+
+@ControllerAdvice는 Spring에서 제공하는 어노테이션
+@Controller나 @RestController에서 발생하는 예외를 한 곳에서 관리하고 처리할 수 있게 하는 어노테이션
+설정을 통해 범위 지정이 가능하며, Default 값으로 모든 Controller에 대해 예외 처리를 관리함
+ - @RestControllerAdvice(basePackage = "aroundhub.thinkground.studio")와 같이 패키지 범위를 설정할 수 있음
+
+예외 발생시 Json의 형태로 결과를 반환하기 위해서는 @RestControllerAdvice 를 사용하면 됨
+
+2. @ExceptionHandler
+
+예외 처리 상황이 발생하면 해당 Handler로 처리하겠다고 명시하는 어노테이션
+
+어노테이션 뒤에 괄호를 붙여 어떤 ExceptionClass를 처리할지 설정할 수 있음
+ - @ExceptionHandler(00Exception.class)
+Exception.class는 최상위 클래스로 하위 세부 예외 처리 클래스로 설정한 핸들러가 존재하면, 그 핸들러가 우선처리하게 되며, 처리하지 못하는 예외 처리에 대해 ExceptionClass에서 핸들링함
+
+@ControllerAdvice로 설정된 클래스 내에서 메소드로 정의할 수 있지만,
+각 Controller 안에 설정도 가능
+
+전역 설정(@ControllerAdvice)보다 지역 설정(Controller)으로 정의한 Handler가 우선순위를 가짐

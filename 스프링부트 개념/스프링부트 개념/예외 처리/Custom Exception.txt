@@ -1,0 +1,16 @@
+Custom Exception
+
+목표하는 에러 응답
+
+HttpStatus
+ HttpStatus는 Enum 클래스임
+	Enum Class
+	 - 서로 관련 있는 상수들을 모아 심볼릭한 명칭의 집합으로 정의한 것
+	 - 클래스 처럼 보이게 하는 상수
+
+Custom Exception
+ error type, error code, message 에서 필요한 내용은 아래와 같음
+ 
+error type : HttpStatus의 resasonPhrase
+error code : HttpStatus의 value
+message : 상황별 디테일 Message
