@@ -1,6 +1,5 @@
 package com.example.board.dto.response;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
