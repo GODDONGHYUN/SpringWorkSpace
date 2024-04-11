@@ -5,6 +5,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -20,9 +22,9 @@ import java.time.temporal.ChronoUnit;
 // * 헤더(Header)  : 토큰의 유형 (일반적으로 jwt)과 암호화 알고리즘이 포함 되어있음
 // * 페이로드(Payload) : 클라이언트 혹은 서버가 상대방에게 전달할 데이터가 포함되어 있음 (작성자, 접근 주체의 정보, 작성시간, 만료시간 등)
 // * 서명(Signature : 헤더와 페이로드를 합쳐서 인코딩하고 지정한 비밀키로 암호화한 데이터
+@Component
 public class JwtProvider {
 	
-
 	// # JWT 생성
 
 	public String create(String principle) {

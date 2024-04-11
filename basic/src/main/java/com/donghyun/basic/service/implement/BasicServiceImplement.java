@@ -2,7 +2,10 @@ package com.donghyun.basic.service.implement;
 
 import org.springframework.stereotype.Service;
 
+import com.donghyun.basic.provider.JwtProvider;
 import com.donghyun.basic.service.BasicService;
+
+import lombok.RequiredArgsConstructor;
 
 // Service 레이어 : 
 // - 실제 비즈니스 로직(연산)을 실행하는 영역
@@ -13,7 +16,10 @@ import com.donghyun.basic.service.BasicService;
 // @Component : 해당 클래스를 Spring Bean으로 등록하는 어노테이션
 // Spring Bean : 제어의 역전을 통해서 Spring Frapework가 의존성 주입시 해당 클래스의 인스턴스를 제어하는 요소
 @Service
+@RequiredArgsConstructor
 public class BasicServiceImplement implements BasicService {
+
+	private final JwtProvider jwtProvider;
 
     @Override
     public String getHello() {
@@ -24,4 +30,11 @@ public class BasicServiceImplement implements BasicService {
     public String getApple() {
         return "Get Mapping 으로 만든 메서드";
     }
+
+		@Override
+		public String getJwt(String principle) {
+			return jwtProvider.create(principle);
+		}
+
+
 }
