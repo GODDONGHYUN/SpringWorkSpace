@@ -1,12 +1,13 @@
 package com.donghyun.basic.provider;
 
-
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -24,14 +25,24 @@ import java.time.temporal.ChronoUnit;
 // * 서명(Signature : 헤더와 페이로드를 합쳐서 인코딩하고 지정한 비밀키로 암호화한 데이터
 @Component
 public class JwtProvider {
+
+	// JWT 암호화에 사용되는 비밀키는 보안 관리가 되어야 함
+	// 코드에 직접적으로 시크릿 키를 작성하는 것은 보안상 좋지 않음
+	// 해결책
+	// # 1. application.properties / application.yml에 등록
+	// # - application.properties 혹은 application.yaml에 시크릿 키를 작성
+	// # - @Value()를 이용하여 데이터를 가져옴
+	// # - 주의사항  : application.properties / application.yaml을 gitignore에 등록 해야함
+	@Value("${jwt.secret-key}")
+	private String secretKey;
 	
 	// # JWT 생성
 
 	public String create(String principle) {
 			// 만료 시간
 			Date expiredDate = Date.from(Instant.now().plus(4, ChronoUnit.HOURS));
-			// 비밀키 생성
-			Key  key = Keys.hmacShaKeyFor("qwerasdfzxcvqwerasdfzxcvqwerasdfzxcvqwerasdfzxcv".getBytes(StandardCharsets.UTF_8));
+			// 시크릿 키 생성
+			Key  key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 
 			// JWT 생성
 			String jwt =  Jwts.builder()
@@ -48,5 +59,28 @@ public class JwtProvider {
 			.compact();
 
 			return jwt;
+	}
+
+	public String validation(String jwt) {
+
+		// JWT 검증 결과로 나타나는 페이로드가 저장 될 변수
+		Claims claims = null;
+
+		// 시크릿 키 생성
+		Key  key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+
+		try {
+				// 시크릿 키로 JWT 복호화 작업
+				claims = Jwts.parserBuilder()
+						.setSigningKey(key)
+						.build()
+						.parseClaimsJws(jwt)
+						.getBody();
+		} catch (Exception exception) {
+				exception.printStackTrace();
+				return null;
+		}
+
+		return claims.getSubject();
 	}
 }
