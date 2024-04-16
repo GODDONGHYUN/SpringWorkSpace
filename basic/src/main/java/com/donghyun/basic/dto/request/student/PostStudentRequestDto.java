@@ -25,4 +25,7 @@ public class PostStudentRequestDto {
     @NotNull
     private Boolean graduation;
 
+		@NotBlank
+		private String password;
+
 }

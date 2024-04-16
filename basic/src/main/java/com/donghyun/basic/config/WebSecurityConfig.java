@@ -85,10 +85,11 @@ public class WebSecurityConfig {
         // * 인증된 사용자는 모두 접근을 허용
         .authorizeHttpRequests(request -> request
             // * 특정 URL 패턴에 대한 요청은 인증되지 않은 사용자도 접근을 허용
-            .requestMatchers(HttpMethod.GET, "/auth/*").permitAll()
+            .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
             // * 특정 URL 패턴에 대한 요청은 지정한 권한을 가지고 있는 사용자만 접근을 허용
-            .requestMatchers("/student", "/student/**").hasRole("STUDENT")
+            // .requestMatchers("/student", "/student/**").hasRole("STUDENT")
             // * 인증된 사용자는 모두 접근을 허용
+						.requestMatchers("/student", "/student/**").permitAll()
             .anyRequest().authenticated()
         )
 				//  * 인증 과정 중에 발생한 예외 처리
