@@ -20,6 +20,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.donghyun.basic.filter.JwtAuthenticationFilter;
+import com.donghyun.basic.provider.OAuth2SuccessHandler;
 import com.donghyun.basic.service.implement.OAuth2UserServiceImplement;
 
 import jakarta.servlet.ServletException;
@@ -36,8 +37,10 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
+
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final OAuth2UserServiceImplement oAuth2UserService;
+	private final OAuth2SuccessHandler oAuth2SuccessHandler;
     
     //  #@Bean : 
     // * Spring bean으로 등록하는 어노테이션
@@ -94,7 +97,7 @@ public class WebSecurityConfig {
         // * 인증된 사용자는 모두 접근을 허용
         .authorizeHttpRequests(request -> request
 
-						.requestMatchers("/oauth2/**").permitAll()
+						.requestMatchers("/oauth2/**", "/").permitAll()
             // * 특정 URL 패턴에 대한 요청은 인증되지 않은 사용자도 접근을 허용
             .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
             // * 특정 URL 패턴에 대한 요청은 지정한 권한을 가지고 있는 사용자만 접근을 허용
@@ -108,6 +111,8 @@ public class WebSecurityConfig {
 				endpoint.baseUri("/oauth2/callback/*"))
 				// ^ OAuth 인증 서버에서 인증 절차가 끝난 후 사용자에 대한 정보를 처리하는 객체를 지정
 				.userInfoEndpoint(endpoint -> endpoint.userService(oAuth2UserService))
+				// ^ OAuth 인증 요청 성공시 처리하는 객체를 지정
+				.successHandler(oAuth2SuccessHandler)
 				)
 				//  * 인증 과정 중에 발생한 예외 처리
 				.exceptionHandling(exceptionHandling -> exceptionHandling

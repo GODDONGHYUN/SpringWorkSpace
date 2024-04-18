@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.donghyun.basic.entity.CustomOAuth2User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 // # OAuth2.0 인증 결과를 비즈니스 로직에 사용하는 서비스 
@@ -22,6 +23,12 @@ public class OAuth2UserServiceImplement extends DefaultOAuth2UserService {
 			String oauth2CleintName = userRequest.getClientRegistration().getClientName();
 			System.out.println(oauth2CleintName);
 			OAuth2User oAuth2User = super.loadUser(userRequest);
+
+			try {
+						System.out.println(new ObjectMapper().writeValueAsString(oAuth2User));
+			} catch(Exception exception) {
+					exception.printStackTrace();
+			}
 
 			String name = (String) oAuth2User.getAttributes().get("login");
 
